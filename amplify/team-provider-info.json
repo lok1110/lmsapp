@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-lmsapp-dev-102640-authRole",
+      "UnauthRoleArn": "arn:aws:iam::310901816315:role/amplify-lmsapp-dev-102640-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::310901816315:role/amplify-lmsapp-dev-102640-authRole",
+      "Region": "ap-southeast-1",
+      "DeploymentBucketName": "amplify-lmsapp-dev-102640-deployment",
+      "UnauthRoleName": "amplify-lmsapp-dev-102640-unauthRole",
+      "StackName": "amplify-lmsapp-dev-102640",
+      "StackId": "arn:aws:cloudformation:ap-southeast-1:310901816315:stack/amplify-lmsapp-dev-102640/25e540d0-d2bc-11ee-9db4-0687dbcf0b5f",
+      "AmplifyAppId": "d1eqdfjkmgdqo7"
+    },
+    "categories": {
+      "api": {
+        "lmsapp": {}
+      }
+    }
+  }
+}
