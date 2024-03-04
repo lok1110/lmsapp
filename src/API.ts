@@ -4,13 +4,17 @@
 
 export type CreateTodoInput = {
   id?: string | null,
-  name: string,
-  description?: string | null,
+  pointName: string,
+  pointDesc?: string | null,
+  timestamp: string,
+  siteName?: string | null,
+  value?: number | null,
 };
 
 export type ModelTodoConditionInput = {
-  name?: ModelStringInput | null,
-  description?: ModelStringInput | null,
+  pointDesc?: ModelStringInput | null,
+  siteName?: ModelStringInput | null,
+  value?: ModelFloatInput | null,
   and?: Array< ModelTodoConditionInput | null > | null,
   or?: Array< ModelTodoConditionInput | null > | null,
   not?: ModelTodoConditionInput | null,
@@ -56,29 +60,61 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
+export type ModelFloatInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
 export type Todo = {
   __typename: "Todo",
   id: string,
-  name: string,
-  description?: string | null,
+  pointName: string,
+  pointDesc?: string | null,
+  timestamp: string,
+  siteName?: string | null,
+  value?: number | null,
   createdAt: string,
   updatedAt: string,
 };
 
 export type UpdateTodoInput = {
-  id: string,
-  name?: string | null,
-  description?: string | null,
+  id?: string | null,
+  pointName: string,
+  pointDesc?: string | null,
+  timestamp: string,
+  siteName?: string | null,
+  value?: number | null,
 };
 
 export type DeleteTodoInput = {
-  id: string,
+  pointName: string,
+  timestamp: string,
+};
+
+export type ModelStringKeyConditionInput = {
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
 };
 
 export type ModelTodoFilterInput = {
   id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
-  description?: ModelStringInput | null,
+  pointName?: ModelStringInput | null,
+  pointDesc?: ModelStringInput | null,
+  timestamp?: ModelStringInput | null,
+  siteName?: ModelStringInput | null,
+  value?: ModelFloatInput | null,
   and?: Array< ModelTodoFilterInput | null > | null,
   or?: Array< ModelTodoFilterInput | null > | null,
   not?: ModelTodoFilterInput | null,
@@ -100,6 +136,12 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
+export enum ModelSortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
+
 export type ModelTodoConnection = {
   __typename: "ModelTodoConnection",
   items:  Array<Todo | null >,
@@ -108,8 +150,11 @@ export type ModelTodoConnection = {
 
 export type ModelSubscriptionTodoFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  name?: ModelSubscriptionStringInput | null,
-  description?: ModelSubscriptionStringInput | null,
+  pointName?: ModelSubscriptionStringInput | null,
+  pointDesc?: ModelSubscriptionStringInput | null,
+  timestamp?: ModelSubscriptionStringInput | null,
+  siteName?: ModelSubscriptionStringInput | null,
+  value?: ModelSubscriptionFloatInput | null,
   and?: Array< ModelSubscriptionTodoFilterInput | null > | null,
   or?: Array< ModelSubscriptionTodoFilterInput | null > | null,
 };
@@ -144,6 +189,18 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array< string | null > | null,
 };
 
+export type ModelSubscriptionFloatInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  in?: Array< number | null > | null,
+  notIn?: Array< number | null > | null,
+};
+
 export type CreateTodoMutationVariables = {
   input: CreateTodoInput,
   condition?: ModelTodoConditionInput | null,
@@ -153,8 +210,11 @@ export type CreateTodoMutation = {
   createTodo?:  {
     __typename: "Todo",
     id: string,
-    name: string,
-    description?: string | null,
+    pointName: string,
+    pointDesc?: string | null,
+    timestamp: string,
+    siteName?: string | null,
+    value?: number | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -169,8 +229,11 @@ export type UpdateTodoMutation = {
   updateTodo?:  {
     __typename: "Todo",
     id: string,
-    name: string,
-    description?: string | null,
+    pointName: string,
+    pointDesc?: string | null,
+    timestamp: string,
+    siteName?: string | null,
+    value?: number | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -185,32 +248,42 @@ export type DeleteTodoMutation = {
   deleteTodo?:  {
     __typename: "Todo",
     id: string,
-    name: string,
-    description?: string | null,
+    pointName: string,
+    pointDesc?: string | null,
+    timestamp: string,
+    siteName?: string | null,
+    value?: number | null,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
 export type GetTodoQueryVariables = {
-  id: string,
+  pointName: string,
+  timestamp: string,
 };
 
 export type GetTodoQuery = {
   getTodo?:  {
     __typename: "Todo",
     id: string,
-    name: string,
-    description?: string | null,
+    pointName: string,
+    pointDesc?: string | null,
+    timestamp: string,
+    siteName?: string | null,
+    value?: number | null,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
 export type ListTodosQueryVariables = {
+  pointName?: string | null,
+  timestamp?: ModelStringKeyConditionInput | null,
   filter?: ModelTodoFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
+  sortDirection?: ModelSortDirection | null,
 };
 
 export type ListTodosQuery = {
@@ -219,8 +292,38 @@ export type ListTodosQuery = {
     items:  Array< {
       __typename: "Todo",
       id: string,
-      name: string,
-      description?: string | null,
+      pointName: string,
+      pointDesc?: string | null,
+      timestamp: string,
+      siteName?: string | null,
+      value?: number | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type TodosBySiteNameAndTimestampQueryVariables = {
+  siteName: string,
+  timestamp?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelTodoFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type TodosBySiteNameAndTimestampQuery = {
+  todosBySiteNameAndTimestamp?:  {
+    __typename: "ModelTodoConnection",
+    items:  Array< {
+      __typename: "Todo",
+      id: string,
+      pointName: string,
+      pointDesc?: string | null,
+      timestamp: string,
+      siteName?: string | null,
+      value?: number | null,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -236,8 +339,11 @@ export type OnCreateTodoSubscription = {
   onCreateTodo?:  {
     __typename: "Todo",
     id: string,
-    name: string,
-    description?: string | null,
+    pointName: string,
+    pointDesc?: string | null,
+    timestamp: string,
+    siteName?: string | null,
+    value?: number | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -251,8 +357,11 @@ export type OnUpdateTodoSubscription = {
   onUpdateTodo?:  {
     __typename: "Todo",
     id: string,
-    name: string,
-    description?: string | null,
+    pointName: string,
+    pointDesc?: string | null,
+    timestamp: string,
+    siteName?: string | null,
+    value?: number | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -266,8 +375,11 @@ export type OnDeleteTodoSubscription = {
   onDeleteTodo?:  {
     __typename: "Todo",
     id: string,
-    name: string,
-    description?: string | null,
+    pointName: string,
+    pointDesc?: string | null,
+    timestamp: string,
+    siteName?: string | null,
+    value?: number | null,
     createdAt: string,
     updatedAt: string,
   } | null,

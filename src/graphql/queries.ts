@@ -8,11 +8,14 @@ type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryOutput: OutputType;
 };
 
-export const getTodo = /* GraphQL */ `query GetTodo($id: ID!) {
-  getTodo(id: $id) {
+export const getTodo = /* GraphQL */ `query GetTodo($pointName: String!, $timestamp: AWSDateTime!) {
+  getTodo(pointName: $pointName, timestamp: $timestamp) {
     id
-    name
-    description
+    pointName
+    pointDesc
+    timestamp
+    siteName
+    value
     createdAt
     updatedAt
     __typename
@@ -20,15 +23,28 @@ export const getTodo = /* GraphQL */ `query GetTodo($id: ID!) {
 }
 ` as GeneratedQuery<APITypes.GetTodoQueryVariables, APITypes.GetTodoQuery>;
 export const listTodos = /* GraphQL */ `query ListTodos(
+  $pointName: String
+  $timestamp: ModelStringKeyConditionInput
   $filter: ModelTodoFilterInput
   $limit: Int
   $nextToken: String
+  $sortDirection: ModelSortDirection
 ) {
-  listTodos(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listTodos(
+    pointName: $pointName
+    timestamp: $timestamp
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
     items {
       id
-      name
-      description
+      pointName
+      pointDesc
+      timestamp
+      siteName
+      value
       createdAt
       updatedAt
       __typename
@@ -38,3 +54,38 @@ export const listTodos = /* GraphQL */ `query ListTodos(
   }
 }
 ` as GeneratedQuery<APITypes.ListTodosQueryVariables, APITypes.ListTodosQuery>;
+export const todosBySiteNameAndTimestamp = /* GraphQL */ `query TodosBySiteNameAndTimestamp(
+  $siteName: String!
+  $timestamp: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelTodoFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  todosBySiteNameAndTimestamp(
+    siteName: $siteName
+    timestamp: $timestamp
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      pointName
+      pointDesc
+      timestamp
+      siteName
+      value
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.TodosBySiteNameAndTimestampQueryVariables,
+  APITypes.TodosBySiteNameAndTimestampQuery
+>;

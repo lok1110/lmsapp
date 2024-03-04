@@ -4,8 +4,25 @@
 input AMPLIFY {
   globalAuthRule: AuthRule = { allow: public }
 } # FOR TESTING ONLY!
+# type Todo @model {
+#   pointName: String! @primaryKey(sortKeyFields: ["timestamp"])
+#   pointDesc: String
+#   timestamp: AWSDateTime!
+#   siteName: String @index(name: "bySiteName", sortKeyFields: ["timestamp"])
+#   value: Float
+# } 
+# type Todo @model {
+#   id: ID!
+#   name: String!
+#   description: String
+#   value: Float
+# }
+
 type Todo @model {
   id: ID!
-  name: String!
-  description: String
+  pointName: String! @primaryKey(sortKeyFields: ["timestamp"])
+  pointDesc: String
+  timestamp: AWSDateTime!
+  siteName: String @index(name: "bySiteName", sortKeyFields: ["timestamp"])
+  value: Float
 }
